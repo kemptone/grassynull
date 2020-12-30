@@ -68,6 +68,18 @@ const Events = e => {
     }
   )
 
+  $("#btn_clear").addEventListener(
+    "click"
+    , e => {
+      if (confirm("Clearing will destroy the cipher, are you sure?")) {
+        if (window.localStorage) {
+          localStorage.clear()
+          location.reload()
+        }
+      }
+    }
+  )
+
   if (!State.words.length) {
     $("body").classList.add("needs-source")
   }

@@ -51,49 +51,13 @@ const ScrambleByArrayOfWords = State => {
     // actual work done here
     arrayOfWords.forEach( scrambleByWord )
 
-    words.forEach(( key, index ) =>  charMap[ key ] = index )
+    words.forEach(( key, index ) =>  charMap[ " " + key ] = index )
 
     console.log("Finished scramble")
 
   }
 
 
-
-}
-
-const delayed = callback => {
-
-  const mapOfWords = {}
-  const words = `~!@#$%^&*()_+=-,.<>/?":;' `.split("")
-  const text = e.target.result
-  const split = text.split(/\s/)
-  const uniqueAddToArray = UniqueAddToArray({ mapOfWords, words })
-
-  split.forEach( item => {
-
-    uniqueAddToArray( item, () => {
-
-      if (item && item.length < 5) {
-        let addTheseAlso = buildPermute( item )
-        addTheseAlso.push( ...item.split("") )
-        addTheseAlso.forEach( item => uniqueAddToArray(item) )
-      }
-
-    })
-    
-  })
-
-  console.log("created all unique words")
-
-  // set initial words
-  S.words = words
-
-  // This is the initial scramble, it will be possible to add a second file to scrambe further, or multiply the scamble
-  ScrambleByArrayOfWords( S )( split )
-
-  callback && callback({
-    mapOfWords
-  })
 
 }
 

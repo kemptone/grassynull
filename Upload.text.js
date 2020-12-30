@@ -12,6 +12,7 @@ export default (start, end) => e => {
     const { words, mapOfWords, charMap } = data
     State.words = words
     State.mapOfWords = mapOfWords
+    State.charMap = charMap
 
     if (window.localStorage) {
       localStorage.setItem( "words", JSON.stringify( words ) )

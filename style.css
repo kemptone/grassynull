@@ -26,6 +26,15 @@ body {
   margin:0;
   padding:0;
   background-color:var(--bg-color2);
+  font-size:16px;
+}
+
+@media (max-width:700px) {
+
+  #btn_full_screen {
+    display:none;
+  }
+
 }
 
 body.needs-source #encoding-graph,
@@ -35,8 +44,12 @@ body.needs-source main details {
   display:none;
 }
 
-body.needs-source #btn_upload_image,
-body.needs-source #btn_upload_dictionary {
+#btn_upload_text {
+  display:none;
+}
+
+body.needs-source #btn_upload_text {
+  display:inline-block;
   padding:30px 10px;
 }
 
@@ -178,7 +191,6 @@ details > textarea {
   border:1px solid var(--lt-border);
   padding: 8px;
   box-sizing: border-box;
-  font-size: 11px;
   background-color: var(--bright);
   border-radius: 3px;
   box-shadow: inset 1px 1px 4px rgba(0,0,0,.1);

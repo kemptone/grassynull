@@ -15,12 +15,12 @@ const RawEncode = State => text => {
 
     theLoop:
     while (length) {
-      if (index = charMap[ word.substr(0, length)]) {
+      if (index = charMap[ " " + word.substr(0, length)]) {
 
         code = index + minCharCode
 
         if (length !== word.length) {
-          index = charMap[ word.substr(0, length) ]
+          index = charMap[ " " + word.substr(0, length) ]
           code = index + minCharCode
           encode.push(code)
         } else {
