@@ -1,7 +1,7 @@
 import State from './State.js'
 import $ from './helpers/dollar.js'
-import Upload from './upload.js'
-import UploadText from './upload.text.js'
+import Upload from './Upload.js'
+import UploadText from './Upload.text.js'
 import Encode from './Encode.js'
 import Decode from './Decode.js'
 
