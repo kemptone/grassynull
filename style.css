@@ -194,6 +194,7 @@ details > textarea {
   background-color: var(--bright);
   border-radius: 3px;
   box-shadow: inset 1px 1px 4px rgba(0,0,0,.1);
+  font-size:100%;
 }
 
 input[type="text"] {
