@@ -1,3 +1,3 @@
-import Events from './events.js'
+import Events from './Events.js'
 
 window.onload = Events
