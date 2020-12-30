@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta http-equiv="refresh" content="13" > -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>🃟 grassyNull</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body id="body">
+  <header>
+    <section>
+      <nav>
+        <span class="logo" placeholder="🃟"></span>
+        <span class="letters">𝚐𝚛𝚊𝚜𝚜𝚢𝑵𝒖𝒍𝒍</span>
+        <button id="btn_full_screen">⿹</button>
+      </nav>
+    </section>
+  </header>
+  <main>
+    <section>
+      <details open>
+        <summary>Your Message</summary>
+        <div 
+          id="source" 
+          class="textarea" 
+          placeholder="input text you want to send"
+          contenteditable></div>
+      </details>
+      <details open>
+        <summary>Encoded Text</summary>
+        <div 
+          id="encoded" 
+          class="textarea" 
+          placeholder="this is where the encoded text will appear, you can copy or paste in here."
+          contenteditable></div>
+      </details>
+      <details open>
+        <summary>Decoded from Encoded Text</summary>
+        <div 
+          id="decoded" 
+          class="textarea" 
+          placeholder="this is where the decoded text will appear."
+          contenteditable></div>
+      </details>
+      <p class="actions">
+        <input type="file" id="upload" />
+        <button 
+          id="btn_upload_text" 
+          title="This is the dictionary source file needed for encoding words into a cypher. Anyone reading or composing will need access to this same file. It needs to be written in the same language of the message you wish to send. Full books like the Bible are ideal, but so are smaller books. A unique title would be more secure."
+        > load text source
+        </button>
+        <button id="btn_clear">clear encoding</button>
+      </p>
+      <p id="explainer">
+        In order to send and receive ciphered messages you will need to load a text source.
+      </p>
+      <div id="loading">
+        <div class="loader"></div>
+        Please wait patiently while the system loads your file.
+      </div>
+    </section>
+  </main>
+  <footer>
+    <section>
+      <details class="small">
+        <summary>about grassyNull</summary>
+        <div>
+          <p>What we offer</p>
+          <ul>
+            <li>Strong Encryption</li>
+            <li>No central server or logins</li>
+            <li>No tracking or snooping</li>
+            <li>Works offline</li>
+            <li>Readable source code</li>
+          </ul>
+          <p>
+            When you use a free online service, <em>you</em> are their product. Scores of people have access to confidential correspondence and personal information you share. Our goal is to push back by offering easy and portable encryption controled only by you. This tool will enable users to send and receive messages via online platforms visible to the sender and receiver(s) but hidden from the platforms that host them. 
+          </p>
+          <p>
+            Corporations can collude with governments to control what we <em>can</em> think and express but also suppress our ideas based upon their own political leanings. It is the nature of institutions to maintain order on their platform at the expense of individual rights. But free people must let their voices be heard. Once our thoughts become caged within the walls of those with power as opposed to the natural limits of a free and functioning society of empowered human beings, we've lost something that cannot be returned. Freedom of thought is precious, like childhood innocence.
+          </p>
+          <details id="how" open>
+            <summary>how does it work?</summary>
+            <p>It's basically a cipher. A book or other stable body of text is loaded into the app, and each word is given a code in the order that it is received that coresponds to a special character (part of utf8). This code is then scrambled by the source text itself. It is impossible to read your messages without knowing the source of the cipher. Future version will allow multiple cipher sources.</p>
+            <p>The source of the cipher needs to be secret, something shared by the user and anybody who wants to read the messages, but not shared by anyone else. Since they are text files, they can exist on your computer or phone without calling attention. Keep them secret.</p>
+            <p>Once the source file is loaded, it will be cached by the app, so you can delete the file, if the situation demands it.</p>
+          </details>
+        </div>
+      </details>
+    </section>
+  </footer>
+</body>
+</html>
+<script type="module" src="main.js"></script>
