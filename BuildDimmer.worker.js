@@ -168,6 +168,7 @@ onmessage = () => {
         bank : value
         , charMap
         , words
+        , encodingName : "Dimmer (default)"
       }).onsuccess = e => {
         self.postMessage({ charMap, words })
       }

@@ -24,7 +24,10 @@ const Events = e => {
     "change"
     , Upload( UploadText( 
       () => $("body").classList.add("loading")
-      , () => $("body").classList.remove("needs-source", "loading")
+      , () => { 
+        $("body").classList.remove("needs-source", "loading") 
+        $("#encoding_name").innerText = `encoding: ${ State.encodingName }`
+      }
     ) )
   )
 
@@ -68,10 +71,19 @@ const Events = e => {
     }
   )
 
+  $(".use-default button").addEventListener(
+    "click"
+    , e => {
+      location.reload()
+    }
+  )
+
   $("#btn_clear").addEventListener(
     "click"
     , e => {
       if (confirm("Clearing will destroy the cipher, are you sure?")) {
+
+        $("#encoding_name").innerText = ""
 
         const DB = indexedDB.open("grassyNull", 2)
           DB.onsuccess = event => {

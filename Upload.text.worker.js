@@ -91,11 +91,14 @@ const ScrambleByArrayOfWords = State => {
 
 onmessage = ({ data }) => {
 
+  const { text, fileInfo } = data
+
+
   let words = `~!@#$%^&*()_+=-,.<>/?":;' `.split("")
 
   const mapOfWords = {}
   const charMap = {}
-  const text = data
+  // const text = data
   const split = text.split(/\s/)
   const uniqueAddToArray = UniqueAddToArray({ mapOfWords, words })
   const self = this
@@ -130,6 +133,7 @@ onmessage = ({ data }) => {
     const transaction = db.transaction(["settings", "banks"], "readwrite")
     const settings = transaction.objectStore("settings")
     const banks = transaction.objectStore("banks")
+    const encodingName = fileInfo.name ||  "custom"
 
     settings.get("current_bank").onsuccess = e => {
       const { value } = e.target.result
@@ -137,9 +141,10 @@ onmessage = ({ data }) => {
         bank : value
         , charMap
         , words
+        , encodingName
       })
 
-      self.postMessage({ charMap, words })
+      self.postMessage({ charMap, words, encodingName })
 
     }
     

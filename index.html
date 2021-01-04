@@ -15,6 +15,7 @@
         <span class="logo" placeholder="🃟"></span>
         <span class="letters">𝚐𝚛𝚊𝚜𝚜𝚢𝑵𝒖𝒍𝒍</span>
         <button id="btn_full_screen">⚙</button>
+        <code id="encoding_name"></code>
       </nav>
     </section>
   </header>
@@ -51,11 +52,14 @@
           title="This is the dictionary source file needed for encoding words into a cypher. Anyone reading or composing will need access to this same file. It needs to be written in the same language of the message you wish to send. Full books like the Bible are ideal, but so are smaller books. A unique title would be more secure."
         > load text source
         </button>
-        <button id="btn_clear">clear encoding</button>
+        <button id="btn_clear">customize encoding</button>
       </p>
-      <p id="explainer">
-        In order to send and receive ciphered messages you will need to load a text source. Keep the file size under 2 megs or so. The text file should match the same language you want to write in.
-      </p>
+      <div id="explainer">
+        In order to send and receive ciphered messages you will need to load a text source. Keep the file size under 2 megs or so. The text file should match the same language you want to write in. Anyone who wants to read the message needs to upload the same file.
+        <div class="use-default">
+          <button>Use default</button>
+        </div>
+      </div>
       <div id="loading">
         <div class="loader"></div>
         Please wait patiently while the system loads your file.

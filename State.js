@@ -15,10 +15,14 @@ const buildDefault = ({ banks, settings, current_bank }) => {
     const { words, charMap } = data
     State.words = words
     State.charMap = charMap
+    State.encodingName = "Dimmer (default)"
 
-    if (State.words.length) {
+    if (State.words.length)
       $("body").classList.remove("needs-source")
-    }
+
+    if (State.encodingName)
+      $("#encoding_name").innerText = "encoding: " + State.encodingName
+
   }
 
   worker.postMessage({})
@@ -35,13 +39,8 @@ DB.onsuccess = event => {
 
   settings.get("current_bank").onsuccess = e => {
 
-    const { value } = e.target.result
-    const current_bank = value
-
-    const request =  banks.get( value )
-
-    request.onerror = e => {
-    }
+    const { value : current_bank } = e.target.result
+    const request =  banks.get( current_bank )
     
     request.onsuccess = e => {
 
@@ -52,6 +51,9 @@ DB.onsuccess = event => {
       else {
         buildDefault({ })
       }
+
+      if (State.encodingName)
+        $("#encoding_name").innerText = "encoding: " + State.encodingName
 
       if (State.words.length) {
         $("body").classList.remove("needs-source")

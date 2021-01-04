@@ -13,7 +13,7 @@ export default onloadend => e => {
     , type
   } = fileSource
 
-  State.fileInfo = {
+  const fileInfo = {
     lastModified
     , lastModifiedDate
     , name
@@ -21,7 +21,7 @@ export default onloadend => e => {
     , type
   }
 
-  reader.onloadend = onloadend
+  reader.onloadend = e => onloadend(e, fileInfo)
   reader.readAsText(fileSource)
 
 }

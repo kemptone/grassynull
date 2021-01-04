@@ -1,6 +1,6 @@
 import State from './State.js'
 
-export default (start, end) => e => {
+export default (start, end) => (e, fileInfo) => {
 
   start && start()
 
@@ -9,12 +9,13 @@ export default (start, end) => e => {
   const worker = new Worker("Upload.text.worker.js")
 
   worker.onmessage = ({ data }) => {
-    const { words, charMap } = data
+    const { words, charMap, encodingName } = data
     State.words = words
     State.charMap = charMap
+    State.encodingName = encodingName
     end && end()
   }
 
-  worker.postMessage( e.target.result )
+  worker.postMessage({ text : e.target.result, fileInfo })
 
 }
