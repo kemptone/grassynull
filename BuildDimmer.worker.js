@@ -130,6 +130,12 @@ const buildList = () => {
   })
   })
 
+  // quick add for special characters
+  ;(function (start, end) {
+    while (start <= end)
+      graphs.push( String.fromCodePoint( start++ ) )
+  }( 8192, 8303 ))
+
   return graphs
 
 }
@@ -142,7 +148,6 @@ onmessage = () => {
 
   console.time("scramble")
   console.timeLog("scramble")
-
 
   const allLetters = words.join("")
   words = fastScatter( words, allLetters, 100 )
