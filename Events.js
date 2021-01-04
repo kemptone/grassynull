@@ -72,10 +72,16 @@ const Events = e => {
     "click"
     , e => {
       if (confirm("Clearing will destroy the cipher, are you sure?")) {
-        if (window.localStorage) {
-          localStorage.clear()
-          location.reload()
-        }
+
+        const DB = indexedDB.open("grassyNull", 2)
+          DB.onsuccess = event => {
+            const transaction = event.target.result.transaction(["settings", "banks"], "readwrite")
+            const banks = transaction.objectStore("banks")
+            banks.delete( State.bank || 0 ).onsuccess = e => {
+              $("body").classList.add("needs-source")
+              // location.reload()
+            }
+          }
       }
     }
   )

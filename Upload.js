@@ -21,9 +21,6 @@ export default onloadend => e => {
     , type
   }
 
-  if (window.localStorage)
-    localStorage.setItem( "fileInfo", JSON.stringify( State.fileInfo ))
-
   reader.onloadend = onloadend
   reader.readAsText(fileSource)
 

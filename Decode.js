@@ -1,14 +1,13 @@
 export const RawDecode = State => text => {
 
-  const { charMap, words, minCharCode } = State
-  const splits = text.split("")
-  const decoded = []
+  const { words, minCharCode } = State
+
   let ret = ""
 
-  splits.forEach( item => {
-    let code = item.charCodeAt(0) - minCharCode 
+  for (let item of text) {
+    let code = item.codePointAt(0) - minCharCode 
     ret += words[ code ] || item
-  })
+  }
 
   return ret
 

@@ -9,17 +9,9 @@ export default (start, end) => e => {
   const worker = new Worker("Upload.text.worker.js")
 
   worker.onmessage = ({ data }) => {
-    const { words, mapOfWords, charMap } = data
+    const { words, charMap } = data
     State.words = words
-    State.mapOfWords = mapOfWords
     State.charMap = charMap
-
-    if (window.localStorage) {
-      localStorage.setItem( "words", JSON.stringify( words ) )
-      localStorage.setItem( "charMap", JSON.stringify( charMap ) )
-      localStorage.setItem( "mapOfWords", JSON.stringify( mapOfWords ) )
-    }
-
     end && end()
   }
 

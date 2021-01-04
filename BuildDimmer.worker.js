@@ -12,7 +12,7 @@ function *permute(a, n = a.length) {
 const fastScatter = (arr, agitant, repeat) => {
 
   // total array splits
-  let x = 1600
+  let x = 600
   let y = arr.length
   let z = agitant.length
 
@@ -37,26 +37,25 @@ const fastScatter = (arr, agitant, repeat) => {
 
 }
 
+
+// This is to create the default grassyNull language file
 // this is here to create every variation of the letters, every arrangement
 // this is needed if the text file is shorter and not all characters and or combinations are accounted for
 function buildPermute (word) {
   return (Array.from(permute(word.split(''))).map(perm => perm.join('')))
 }
 
-// make sure to add only unique characters to the words array
-const UniqueAddToArray = ({ mapOfWords, words }) => (item, success) => {
-
-  if (!item || mapOfWords[ " " + item ])
-    return
-
-  mapOfWords[ " " + item ] = item
-  words.push( item )
-  words.push( item + " " )
-
-  success && success( item )
-
+const AddGroup = graphs => (x, end) => {
+  while (x < end) {
+    graphs.push( String.fromCodePoint(x) )
+    graphs.push( String.fromCodePoint(x) + " " )
+    graphs.push( String.fromCodePoint(x) + "." )
+    graphs.push( String.fromCodePoint(x) + ". " )
+    graphs.push( String.fromCodePoint(x) + "," )
+    graphs.push( String.fromCodePoint(x) + ", " )
+    x++
+  }
 }
-
 
 const ScrambleByWord = words => word => {
 
@@ -85,41 +84,71 @@ const ScrambleByArrayOfWords = State => {
 
   }
 
+}
 
+const buildList = () => {
+
+  const graphs = []
+  const map = {}
+  const letters = "abcdefghijklmnopqrstuvwxyz"
+  const addGroup = AddGroup( graphs )
+
+  addGroup(34, 383)
+
+  letters.split("").forEach( letter1 => {
+  letters.split("").forEach( letter2 => {
+  letters.split("").forEach( letter3 => {
+
+    const gram = buildPermute( `${ letter1 }${ letter2 }${ letter3 }` )
+    const gram2 = buildPermute( `${ letter1 }${ letter2 }` )
+
+    gram2.forEach( word => {
+      if (!map[ " " + word ]) {
+        graphs.push( word )
+        graphs.push( word + " "  )
+        graphs.push( word + "."  )
+        graphs.push( word + ". " )
+        graphs.push( word + ","  )
+        graphs.push( word + ", " )
+        graphs.push( word.substr(0, 1).toUpperCase() + word.substr(1) )
+        map[ " " + word ] = true
+      }
+    })
+
+    gram.forEach( word => {
+      if (!map[ " " + word ]) {
+        graphs.push( word )
+        graphs.push( word + ". " )
+        graphs.push( word + ", " )
+        graphs.push( word + " "  )
+        graphs.push( word.substr(0, 1).toUpperCase() + word.substr(1) )
+        map[ " " + word ] = true
+      }
+    })
+
+  })
+  })
+  })
+
+  return graphs
 
 }
 
-onmessage = ({ data }) => {
+onmessage = () => {
 
-  let words = `~!@#$%^&*()_+=-,.<>/?":;' `.split("")
-
-  const mapOfWords = {}
-  const charMap = {}
-  const text = data
-  const split = text.split(/\s/)
-  const uniqueAddToArray = UniqueAddToArray({ mapOfWords, words })
   const self = this
+  const charMap = {}
+  let words = buildList()
 
-  split.forEach( item => {
+  console.time("scramble")
+  console.timeLog("scramble")
 
-    uniqueAddToArray( item, () => {
 
-      if (item && item.length < 5) {
-        let addTheseAlso = buildPermute( item )
-        addTheseAlso.push( ...item.split("") )
-        addTheseAlso.forEach( item => uniqueAddToArray(item) )
-      }
-
-    })
-    
-  })
-
-  console.log("created all unique words")
-
-  // This is the initial scramble, it will be possible to add a second file to scrambe further, or multiply the scamble
-  // ScrambleByArrayOfWords({ mapOfWords, charMap, words })( split )
-  words = fastScatter( words, split.join(""), 10 )
+  const allLetters = words.join("")
+  words = fastScatter( words, allLetters, 100 )
   words.forEach( (key, index) => charMap[ " " + key ] = index )
+
+  console.timeEnd("scramble")
 
   const DB = indexedDB.open("grassyNull", 2)
 
@@ -130,19 +159,24 @@ onmessage = ({ data }) => {
     const transaction = db.transaction(["settings", "banks"], "readwrite")
     const settings = transaction.objectStore("settings")
     const banks = transaction.objectStore("banks")
+    
 
     settings.get("current_bank").onsuccess = e => {
       const { value } = e.target.result
+
       banks.add({
         bank : value
         , charMap
         , words
-      })
+      }).onsuccess = e => {
+        self.postMessage({ charMap, words })
+      }
 
-      self.postMessage({ charMap, words })
 
     }
     
   }
+
+  // self.postMessage({ charMap, words })
 
 }

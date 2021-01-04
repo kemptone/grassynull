@@ -45,6 +45,7 @@ const RawEncode = State => text => {
 
   })
 
+  console.log( encode )
   const str = String.fromCodePoint.apply(self, encode)
 
   return str

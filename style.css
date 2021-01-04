@@ -290,13 +290,13 @@ details:hover summary::-webkit-details-marker:hover {
 
 #btn_full_screen {
   position: absolute;
-  top: 15px;
+  top: 0px;
   right: 0;
   padding: 2px 4px;
-  font-size: 26px;
-  background-color:var(--btn-color3);
-  border: 1px solid #044b9861;
-  color: #044b9894;
+  font-size: 47px;
+  background-color: transparent;
+  /* border: 1px solid #044b9861; */
+  color: #000;
 }
 
 .full-screen main > section {
