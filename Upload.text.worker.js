@@ -119,9 +119,18 @@ onmessage = ({ data }) => {
 
   console.log("created all unique words")
 
+  // quick add for special characters
+  ;(function (start, end) {
+    while (start <= end)
+      words.push( String.fromCodePoint( start++ ) )
+  }( 8192, 8303 ))
+
   // This is the initial scramble, it will be possible to add a second file to scrambe further, or multiply the scamble
   // ScrambleByArrayOfWords({ mapOfWords, charMap, words })( split )
   words = fastScatter( words, split.join(""), 10 )
+
+
+
   words.forEach( (key, index) => charMap[ " " + key ] = index )
 
   const DB = indexedDB.open("grassyNull", 2)
